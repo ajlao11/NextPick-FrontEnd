@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useSessionResults } from '@/features/sessions/hooks/useSessionResults';
+import { Trophy } from 'lucide-react';
 
 export default function SessionResultsPage() {
 
@@ -95,7 +96,7 @@ export default function SessionResultsPage() {
                     <div className="rounded-[28px] border border-black/[0.06] bg-white p-7 shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
                         <div className="text-center">
                             <div className="text-4xl">
-                                🏆
+                                < Trophy />
                             </div>
 
                             <h1 className="mt-3 text-3xl font-black">

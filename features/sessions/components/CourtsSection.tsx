@@ -1,5 +1,7 @@
 'use client';
 
+import { CircleFadingPlay, Clock2 } from "lucide-react";
+
 interface Court {
     id: string;
     number: number;
@@ -86,11 +88,11 @@ export function CourtsSection({
                                 <div className="mt-2 flex justify-center">
                                     {playing ? (
                                         <span className="text-xl">
-                                            🏓
+                                            <CircleFadingPlay />
                                         </span>
                                     ) : (
                                         <span className="text-xl opacity-50">
-                                            ◷
+                                            <Clock2 />
                                         </span>
                                     )}
                                 </div>

@@ -57,6 +57,7 @@ export interface SessionPlayer {
   checkedIn: boolean;
   createdAt: string;
   player: Player;
+  queueEntry?: QueuePlayer | null;
 }
 
 export interface CreatePlayerData {
@@ -77,6 +78,8 @@ export interface QueuePlayer {
   status: QueueStatus;
   createdAt: string;
   updatedAt: string;
+  gamesPlayed: number;
+  waitingSince: string;
   sessionPlayer: SessionPlayer;
 }
 

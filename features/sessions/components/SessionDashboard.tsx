@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { Settings, Users, LogOut,  Plus } from 'lucide-react';
 import { SessionHeader } from './SessionHeader';
 import { MatchesSection } from './MatchesSection';
 import { QueueSection } from './QueueSection';
@@ -11,6 +12,7 @@ import { PlayersSection } from './PlayerSelection';
 import { useQueue } from '@/features/sessions/hooks/useQueue';
 import { useMatches } from '@/features/sessions/hooks/useMatches';
 import { useCourts } from '@/features/sessions/hooks/useCourts';
+import type { GameFormat } from '../types/session.types';
 
 interface SessionDashboardProps {
   session: {
@@ -21,7 +23,7 @@ interface SessionDashboardProps {
     endTime: string | null;
     courtCount: number;
     maxPlayers: number | null;
-    gameFormat: string;
+    gameFormat: GameFormat;
     matchingStyle: string;
     status: string;
   };
@@ -78,7 +80,7 @@ export function SessionDashboard({
               }
               className="inline-flex items-center gap-2 rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm font-black transition hover:bg-black/[0.025]"
             >
-              <SettingsIcon />
+               <Settings />
               Settings
             </button>
 
@@ -89,19 +91,8 @@ export function SessionDashboard({
               }
               className="inline-flex items-center gap-2 rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm font-black transition hover:bg-black/[0.025]"
             >
-              <PlayersIcon />
+              <Users />
               Players
-            </button>
-
-            <button
-              type="button"
-              onClick={() =>
-                setModal('court')
-              }
-              className="inline-flex items-center gap-2 rounded-xl border border-black/10 bg-white px-4 py-2.5 text-sm font-black transition hover:bg-black/[0.025]"
-            >
-              <PlusIcon />
-              Add Court
             </button>
 
             {/* End Session */}
@@ -112,6 +103,7 @@ export function SessionDashboard({
               }
               className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-white px-4 py-2.5 text-sm font-black text-red-600 transition hover:bg-red-50"
             >
+              <LogOut />
               End Session
             </button>
           </div>
@@ -124,6 +116,7 @@ export function SessionDashboard({
         <div className="px-6 pt-6 sm:px-8">
           <MatchesSection
             sessionId={session.id}
+            gameFormat={session.gameFormat}
             matches={matches}
             loading={matchesLoading}
             generating={generating}
@@ -146,6 +139,7 @@ export function SessionDashboard({
             queue={queue}
             loading={queueLoading}
             error={queueError}
+            playersPerMatch={session.gameFormat === 'SINGLES' ? 2 : 4}
           />
 
           <CourtsSection
@@ -495,29 +489,5 @@ function AddCourtForm({
           : 'Add Court'}
       </button>
     </form>
-  );
-}
-
-function SettingsIcon() {
-  return (
-    <span className="text-base">
-      ⚙
-    </span>
-  );
-}
-
-function PlayersIcon() {
-  return (
-    <span className="text-base">
-      ♟
-    </span>
-  );
-}
-
-function PlusIcon() {
-  return (
-    <span className="text-base">
-      +
-    </span>
   );
 }

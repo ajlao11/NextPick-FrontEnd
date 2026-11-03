@@ -24,7 +24,6 @@ export function usePlayers(sessionId: string) {
       setError(null);
 
       const data = await getPlayers(sessionId);
-
       setPlayers(data);
     } catch (error) {
       setError(
@@ -57,9 +56,7 @@ export function usePlayers(sessionId: string) {
     return player;
   };
 
-  const toggleCheckIn = async (
-    playerId: string,
-  ) => {
+  const toggleCheckIn = async (playerId: string) => {
     const updated = await togglePlayerCheckIn(
       sessionId,
       playerId,
@@ -68,7 +65,11 @@ export function usePlayers(sessionId: string) {
     setPlayers((current) =>
       current.map((player) =>
         player.playerId === playerId
-          ? updated
+          ? {
+            ...player,
+            ...updated,
+            player: updated.player ?? player.player,
+          }
           : player,
       ),
     );
